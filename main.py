@@ -63,6 +63,25 @@ def return_calc():
 
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
+URL2= f"https://newsapi.org/v2/everything?q={COMPANY_NAME}&from={yesterday}&sortBy=popularity&language=en&apiKey={API_KEY2}"
+response2 = requests.get(url=URL2)
+response2.raise_for_status()
+
+news_data = response2.json()
+
+import nltk
+
+
+title = news_data['articles'][0]['title']
+brief_text = news_data['articles'][1]['description']
+sentences = nltk.sent_tokenize(brief_text)
+first_sentence = ''
+for sentence in sentences:
+    first_sentence += sentence
+    if sentence[-1] != '.':
+        break
+
+print(first_sentence)
 
 ## STEP 3: Use https://www.twilio.com
 # Send a seperate message with the percentage change and each article's title and description to your phone number. 
